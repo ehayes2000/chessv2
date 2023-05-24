@@ -14,8 +14,9 @@ phases:
       - echo building client ... 
       - npm run build-client
   post_build:
-    - ls -lah server 
-    - ls -lah client
+    commands:
+      - ls -lah server 
+      - ls -lah client
 artifacts:
   files:
     - "**/*"
