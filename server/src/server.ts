@@ -1,7 +1,7 @@
 import express, {Express, Request, Response} from 'express';
 import path from 'path';
 const app: Express = express();
-const port = 3000;
+const port = 8080;
 const root_dir = null;
 const static_client = __dirname.split('/').slice(0,-2).join('/') + '/client/build'
 app.use(express.static(static_client))
