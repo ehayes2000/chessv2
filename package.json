@@ -1,0 +1,25 @@
+{
+  "name": "chessv2",
+  "version": "1.0.0",
+  "description": "",
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",    
+    "build-server": "npm run --prefix server build",
+    "start-server": "npm run --prefix server start",
+    "build-client": "npm run --prefix client build",
+    "start-client": "npm run --prefix client start"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ehayes2000/chessv2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ehayes2000/chessv2/issues"
+  },
+  "homepage": "https://github.com/ehayes2000/chessv2#readme"
+}
