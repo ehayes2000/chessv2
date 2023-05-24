@@ -20,4 +20,6 @@ phases:
 artifacts:
   files:
     - "**/*"
+    - 'dist/**/*'
+    - 'build/**/*'
     
