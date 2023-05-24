@@ -6,6 +6,5 @@ build:
     - npm run bulid-client
 artifacts:
   files:
-    - ./client/build
-    - ./server/dist/server.js
+    - "**/*"
     
