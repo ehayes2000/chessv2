@@ -2,13 +2,15 @@
   "name": "chessv2",
   "version": "1.0.0",
   "description": "",
+  "main": "server/dist/server.js",
 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",    
     "build-server": "npm run --prefix server build",
     "start-server": "npm run --prefix server start",
     "build-client": "npm run --prefix client build",
-    "start-client": "npm run --prefix client start"
+    "start-client": "npm run --prefix client start",
+    "start": "npm run --prefix server start"
 
   },
   "repository": {
