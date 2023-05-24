@@ -18,6 +18,7 @@ phases:
       - ls -lah server 
       - ls -lah client
 artifacts:
+  base-directory: $CODEBUILD_SRC_DIR
   files:
     - "**/*"
     - 'dist/**/*'
