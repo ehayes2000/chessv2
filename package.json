@@ -5,7 +5,8 @@
   "main": "server/src/server.ts",
 
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",    
+    "install-server": "npm install --prefix server",
+    "install-client": "npm install --prefix client",    
     "build-server": "npm run --prefix server build",
     "start-server": "npm run --prefix server start",
     "build-client": "npm run --prefix client build",

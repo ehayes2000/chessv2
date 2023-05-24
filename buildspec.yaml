@@ -1,9 +1,18 @@
 version: 0.2
 
-build: 
-  commands:
-    - npm run build-server
-    - npm run bulid-client
+phases:
+  install:
+    commands:
+      - echo installing server dependencies ...
+      - npm run install-server
+      - echo installing client dependencies ...
+      - npm run install-client
+  build: 
+    commands:
+      - echo building server ...
+      - npm run build-server
+      - echo building client ... 
+      - npm run bulid-client
 artifacts:
   files:
     - "**/*"
