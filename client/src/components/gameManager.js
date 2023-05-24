@@ -8,11 +8,10 @@ export default function GameManager() {
     const makeMoveServer = (move) => { }
 
     return (
-        <div>
-            <Board 
-            serverBoardPosition={serverBoardPosition}
-            serverMakeMove={makeMoveServer}
-            serverUserColor={serverUserColor}/>
-        </div>
+        <Board 
+        serverBoardPosition={serverBoardPosition}
+        serverMakeMove={makeMoveServer}
+        serverUserColor={serverUserColor}/>
+        
     )
 }

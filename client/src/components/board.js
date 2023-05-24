@@ -14,13 +14,12 @@ export default function Board(props){
     const serverUserColor = props.serverUserColor;
     const serverBoardPosition = props.serverBoardPosition;
     const serverMakeMove = props.serverMakeMove;
-    const [clientBoardPosition, setClientBoardPosition] = useState(null);
+   
     const [clientGameState, setClientGameState] = useState(new Chess());
     
     // sync client board and client game engine with server returned FENs
     useEffect(()=>{
         clientGameState.load(serverBoardPosition);
-        setClientBoardPosition(serverBoardPosition);
     }, [serverBoardPosition])
 
 
@@ -34,11 +33,10 @@ export default function Board(props){
         } catch(invalidMove){
             return false;
         }
-        setClientBoardPosition(clientGameState.fen());
         serverMakeMove(from+to);
     }
     
     return <Chessboard 
         onPieceDrop={onDrop}
-        position={clientBoardPosition}/>
+        position={clientGameState.fen()}/>
 }
