@@ -1,0 +1,11 @@
+version: 0.0
+
+build: 
+  commands:
+    - npm run build-server
+    - npm run bulid-client
+artifacts:
+  files:
+    - ./client/build
+    - ./server/dist/server.js
+    
