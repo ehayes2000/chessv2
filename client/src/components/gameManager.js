@@ -12,7 +12,7 @@ export default function GameManager() {
             <Board 
             serverBoardPosition={serverBoardPosition}
             serverMakeMove={makeMoveServer}
-            serverUseColor={null}/>
+            serverUserColor={serverUserColor}/>
         </div>
     )
 }

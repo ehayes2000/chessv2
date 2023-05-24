@@ -14,26 +14,31 @@ export default function Board(props){
     const serverUserColor = props.serverUserColor;
     const serverBoardPosition = props.serverBoardPosition;
     const serverMakeMove = props.serverMakeMove;
-    const [clientBoardPosition, setClientBoardPosition] = useState(Chessboard.startingFen);
+    const [clientBoardPosition, setClientBoardPosition] = useState(null);
     const [clientGameState, setClientGameState] = useState(new Chess());
     
     // sync client board and client game engine with server returned FENs
     useEffect(()=>{
+        clientGameState.load(serverBoardPosition);
         setClientBoardPosition(serverBoardPosition);
-        setClientGameState(clientGameState.load(serverBoardPosition));
     }, [serverBoardPosition])
 
 
-    async function onDrop(from, to, piece){
-        if (piece.color !== serverUserColor)
+    async function onDrop(from, to){
+      
+        if (clientGameState.get(from) && clientGameState.get(from).color !== serverUserColor)
             return false;
-        const move = clientGameState.move({from: from, to: to});
-        if (!move)
+           
+        try{
+            clientGameState.move({from: from, to: to});
+        } catch(invalidMove){
             return false;
+        }
         setClientBoardPosition(clientGameState.fen());
         serverMakeMove(from+to);
     }
     
     return <Chessboard 
-        onPieceDrop={onDrop}/>
+        onPieceDrop={onDrop}
+        position={clientBoardPosition}/>
 }
