@@ -1,13 +1,12 @@
 import './App.css';
-import { useState } from 'react';
-import Board from './components/board'
 import GameManager from './components/gameManager';
-import { Chess } from 'chess.js';
-
-
-
+// import { io } from 'socket.io-client';
+import WebsocketClient from './helper/websocketClient';
 
 function App() {
+  
+  const sendMessage = WebsocketClient();
+  
   return (
     <div style={{width:'40vw'}}> 
       <GameManager></GameManager>
