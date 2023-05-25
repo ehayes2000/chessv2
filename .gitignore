@@ -2,5 +2,5 @@ notes/*
 /node_modules
 node_modules
 */node_modules/**/*
-*/build/**/*
-*/dist/**/*
+client/build
+server/dist
