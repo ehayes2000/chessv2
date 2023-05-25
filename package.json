@@ -11,7 +11,7 @@
     "start-server": "npm run --prefix server start",
     "build-client": "npm run --prefix client build",
     "start-client": "npm run --prefix client start",
-    "start": "npm run --prefix server start"
+    "start": "sh install-build-start.sh"
   },
   "repository": {
     "type": "git",
