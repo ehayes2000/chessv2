@@ -1,9 +1,11 @@
 import express, {Express, Request, Response} from 'express';
 import { Server as IOServer, Socket } from 'socket.io';
 import { createServer, Server as HttpServer } from 'http';
-import { SessionManager } from './sessionManager';
-import { randomUUID } from 'crypto';
 import { v4 as uuidv4 } from 'uuid';
+import { SessionManager } from './sessionManager';
+import { GameManager } from './gameManager';
+import { MatchMaker } from './matchMaker';
+
 
 const app: Express = express();
 const httpServer: HttpServer = createServer(app);
@@ -21,6 +23,8 @@ const static_client = __dirname.split('/').slice(0,-2).join('/') + '/client/buil
 app.use(express.static(static_client))
 
 const sessionManager: SessionManager = new SessionManager();
+const gameManager: GameManager = new GameManager();
+const matchMaker: MatchMaker = new MatchMaker(gameManager.createGame);
 
 app.get('/', (req: Request, res: Response)=>{
     res.sendFile(static_client + '/index.html');
@@ -46,7 +50,7 @@ io.on('connection', (socket: Socket) => {
     });
     
     socket.on('play-online', (data) => {
-       
+        
     })
 });
 
