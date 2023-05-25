@@ -7,7 +7,12 @@ import { v4 as uuidv4 } from 'uuid';
 
 const app: Express = express();
 const httpServer: HttpServer = createServer(app);
-const io: IOServer = new IOServer(httpServer);
+const io: IOServer = new IOServer(httpServer, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 
 
 const port = 8080;

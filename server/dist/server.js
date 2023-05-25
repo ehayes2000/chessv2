@@ -10,7 +10,12 @@ const sessionManager_1 = require("./sessionManager");
 const uuid_1 = require("uuid");
 const app = (0, express_1.default)();
 const httpServer = (0, http_1.createServer)(app);
-const io = new socket_io_1.Server(httpServer);
+const io = new socket_io_1.Server(httpServer, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"]
+    }
+});
 const port = 8080;
 const root_dir = null;
 const static_client = __dirname.split('/').slice(0, -2).join('/') + '/client/build';
