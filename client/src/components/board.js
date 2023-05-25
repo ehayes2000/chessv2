@@ -29,7 +29,6 @@ export default function Board(props){
         if (clientGameState.get(from) && clientGameState.get(from).color !== serverUserColor){
             return false;
         }
-           
         try{
             clientGameState.move({from: from, to: to});
         } catch(invalidMove){

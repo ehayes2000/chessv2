@@ -38,11 +38,19 @@ io.on('connection', (socket: Socket) => {
     sessionManager.addConnection(userId, socket);
 
     socket.on('disconnect', () => {
-        console.log("disconnect")
         sessionManager.removeConnection(socket);
-    }
-    )
-})
+    });
+
+    socket.on('move', (data) => {
+       
+    });
+    
+    socket.on('play-online', (data) => {
+       
+    })
+});
+
+
 
 httpServer.listen(port, () => {
     console.log(`Listening on ${port}`);
