@@ -1,21 +1,12 @@
 import './App.css';
 import GameManager from './components/gameManager';
-import { io } from 'socket.io-client';
+// import { io } from 'socket.io-client';
+import WebsocketClient from './helper/websocketClient';
 
 function App() {
-  const socket = io('http://localhost:8080', {
-    query: {
-      playerId: 'test-player-id'
-    }
-  });
-  socket.on('connect', () => {
-    console.log('connected');
-  })
-
-  socket.on('disconnect', () => {
-    console.log('disconnected')
-  })
-
+  
+  const sendMessage = WebsocketClient();
+  
   return (
     <div style={{width:'40vw'}}> 
       <GameManager></GameManager>
