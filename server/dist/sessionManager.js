@@ -9,9 +9,6 @@ class SessionManager {
     addConnection(userId, connection) {
         this.activeSessions.set(userId, connection);
         this.activeSockets.set(connection.id, userId);
-        console.log("ADD CONNECTION");
-        console.log("map: ", this.activeSockets);
-        console.log(this.activeSessions);
         return true;
     }
     removeConnection(connection) {
@@ -20,8 +17,6 @@ class SessionManager {
         const playerId = this.activeSockets.get(connection.id);
         this.activeSockets.delete(connection.id);
         this.activeSessions.delete(playerId);
-        console.log(JSON.stringify(this.activeSessions));
-        console.log(JSON.stringify(this.activeSessions));
         return true;
     }
 }
