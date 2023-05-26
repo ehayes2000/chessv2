@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 
-// const api_base = "http://chessapp-env.eba-ds87phsx.us-west-2.elasticbeanstalk.com:8080";
-const api_base = 'http://localhost:8080';
+const api_base = "http://chessapp-env.eba-ds87phsx.us-west-2.elasticbeanstalk.com:8080";
+// const api_base = 'http://localhost:8080';
 export default function WebsocketClient(setBoard, setStatus, setColor, setBoardOrientation, userId) {
     const sendMessage = (topic, data) => { 
         socket.emit(topic, data);
