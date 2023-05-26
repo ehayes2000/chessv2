@@ -24,18 +24,14 @@ export class GameManager {
     } 
 
     createGame(userIdW: string, userIdB: string): string{
-        console.log("createGame");
-        console.log(userIdW, " ", userIdB);
         const gameId = v4();
         const newGame: activeGame = {
             playerW: userIdW,
             playerB: userIdB,
             game: new Chess()
         }
-        console.log(this.games);
-        
+    
         this.games.set(gameId, newGame);
-        console.log(this.activeGames);
         this.activeGames.set(userIdW, gameId);
         this.activeGames.set(userIdB, gameId);
         return gameId;

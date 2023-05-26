@@ -47,7 +47,6 @@ io.on('connection', (socket: Socket) => {
     });
 
     socket.on('move', (data) => {
-        console.log(`move: ${data}`);
         data = JSON.parse(data);
         const userId = data.userId;
         const move = data.move;
@@ -57,58 +56,53 @@ io.on('connection', (socket: Socket) => {
             return;
         const gameId: string = gameManager.activeGames.get(userId)!;
         const game: activeGame = gameManager.games.get(gameId)!;
+
         if (game.playerB === userId && (game.game as Chess).turn() == 'w')
             return;
         if (game.playerW === userId && (game.game as Chess).turn() == 'b')
             return;
+       
         if(gameManager.makeMove(gameId, move)){
             const newFen = (game.game as Chess).fen();
-            sessionManager.activeSessions.get(game.playerB)?.emit('board_update',JSON.stringify({'fen': newFen}));
-            sessionManager.activeSessions.get(game.playerW)?.emit('board_update',JSON.stringify({'fen': newFen}));
+            sessionManager.activeSessions.get(game.playerB)?.emit('board-update',JSON.stringify({'fen': newFen}));
+            sessionManager.activeSessions.get(game.playerW)?.emit('board-update',JSON.stringify({'fen': newFen})); 
         } else{ 
             const fen = (game.game as Chess).fen();
-            sessionManager.activeSessions.get(userId)?.emit('board_update',JSON.stringify({'fen': fen}));
+            sessionManager.activeSessions.get(userId)?.emit('board-update',JSON.stringify({'fen': fen}));
         }
         const flag = {};
         if (gameManager.statusUpdate(gameId, flag)){
-            sessionManager.activeSessions.get(game.playerB)?.emit('status_update', JSON.stringify(flag));
-            sessionManager.activeSessions.get(game.playerW)?.emit('status_update', JSON.stringify(flag));
+            sessionManager.activeSessions.get(game.playerB)?.emit('status-update', JSON.stringify(flag));
+            sessionManager.activeSessions.get(game.playerW)?.emit('status-update', JSON.stringify(flag));
         }
         
     });
     
     socket.on('play-online', (data) => {
-        console.log(`play-online: ${data}`);
         data = JSON.parse(data);
         const userId: string | null = data.userId;
-        console.log(typeof data)
-        console.log(userId)
-        console.log("check usreId");
+
         if (userId == null)
             return;
-        console.log("check activeGames");
+       
         if (gameManager.activeGames.has(userId))
             return;
-        console.log("check matchMaker");
+     
         const gameId: string | null = matchMaker.findGame(userId);
         if (gameId == null)
             return;
         const game: activeGame = gameManager.games.get(gameId)!;
-        console.log(game)
-        console.log(sessionManager.activeSockets);
-        console.log("check activeSessions");
+
         
-        console.log("broadcast to playerB");
         const socketB = sessionManager.activeSessions.get(game.playerB);
-        console.log("socket B ", socketB);
-        socketB?.emit('status_update', JSON.stringify({'status': 'active'}));
-        socketB?.emit('board_update', JSON.stringify({'fen': (game.game as Chess).fen()}));
-        socketB?.emit('color_update', JSON.stringify({'color': 'b'}));
+        socketB?.emit('status-update', JSON.stringify({'status': 'active'}));
+        socketB?.emit('board-update', JSON.stringify({'fen': (game.game as Chess).fen()}));
+        socketB?.emit('color-update', JSON.stringify({'color': 'b'}));
     
-        console.log("broadcast to playerW");
-        sessionManager.activeSessions.get(game.playerW)?.emit('status_update', JSON.stringify({'status': 'active'}));
-        sessionManager.activeSessions.get(game.playerW)?.emit('board_update', JSON.stringify({'fen': (game.game as Chess).fen()}));
-        sessionManager.activeSessions.get(game.playerW)?.emit('color_update', JSON.stringify({'color': 'w'}));
+        const socketW = sessionManager.activeSessions.get(game.playerW);
+        socketW?.emit('status-update', JSON.stringify({'status': 'active'}));
+        socketW?.emit('board-update', JSON.stringify({'fen': (game.game as Chess).fen()}));
+        socketW?.emit('color-update', JSON.stringify({'color': 'w'}));
        
     })
 });
@@ -117,5 +111,4 @@ io.on('connection', (socket: Socket) => {
 
 httpServer.listen(port, () => {
     console.log(`Listening on ${port}`);
-    
 })

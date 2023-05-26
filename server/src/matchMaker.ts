@@ -11,6 +11,7 @@ export class MatchMaker {
             this.searchingPlayers.push(playerId);
             return null;
         }
-        return this.createGame(playerId, this.searchingPlayers.pop()!);        
+        const pb = this.searchingPlayers.pop()!;
+        return this.createGame(playerId, pb);        
     }
 }

@@ -7,14 +7,20 @@ export default function GameManager(props) {
     const [serverBoardPosition, setServerBoardPosition] = useState('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
     const [serverUserColor, setServerUserColor] = useState('w');
     const [serverGameStatus, setServerGameStatus] = useState(null);
-    // make api call with makeMove insert pId into call
-    const sendMessage = WebsocketClient(setServerBoardPosition, setServerGameStatus, setServerUserColor, userId);
+    const [boardOrientation, setBoardOrientation] = useState('white');
+    //make api call with makeMove insert pId into call
+    const sendMessage = WebsocketClient(setServerBoardPosition,
+                                        setServerGameStatus,
+                                        setServerUserColor,
+                                        setBoardOrientation,
+                                        userId);
     const makeMoveServer = (move) => { 
         sendMessage('move', JSON.stringify({
             move: move,
             userId: userId
         }));
     }
+
     if (userId == null){
         console.error("cannot create game manager with undefined userId")
         return null;
@@ -27,7 +33,8 @@ export default function GameManager(props) {
             <Board 
             serverBoardPosition={serverBoardPosition}
             serverMakeMove={makeMoveServer}
-            serverUserColor={serverUserColor}/>
+            serverUserColor={serverUserColor}
+            boardOrientation={boardOrientation}/>
            
         </div>
     )
