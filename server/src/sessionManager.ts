@@ -6,15 +6,17 @@ export class SessionManager {
     constructor() {
         this.activeSessions = new Map();
         this.activeSockets = new Map();
+        this.addConnection = this.addConnection.bind(this);
+        this.removeConnection = this.removeConnection.bind(this);
     }
 
-    addConnection(userId: string, connection: Socket){
+    addConnection(userId: string, connection: Socket): true{
         this.activeSessions.set(userId, connection);
         this.activeSockets.set(connection.id, userId);
-     
         return true;
     }
-    removeConnection(connection: Socket){
+    
+    removeConnection(connection: Socket): boolean{
         if (!this.activeSockets.has(connection.id))
             return false;
         
