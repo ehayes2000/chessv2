@@ -1,15 +1,15 @@
 import './App.css';
 import GameManager from './components/gameManager';
-// import { io } from 'socket.io-client';
-import WebsocketClient from './helper/websocketClient';
+import { v4 as uuidv4 } from 'uuid';
+
 
 function App() {
   
-  const sendMessage = WebsocketClient();
+  const userId = uuidv4();
   
   return (
     <div style={{width:'40vw'}}> 
-      <GameManager></GameManager>
+      <GameManager userId={userId}></GameManager>
     </div>
   )
 }
