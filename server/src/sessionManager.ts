@@ -1,8 +1,9 @@
 import { Socket } from 'socket.io';
+import { activeGame } from './gameManager';
 
 export class SessionManager { 
-    activeSessions: Map<string, Socket>; // user id: socket
-    activeSockets: Map<string, string>;
+    activeSessions: Map<string, Socket>; // userId -> socket
+    activeSockets: Map<string, string>; // socketId -> userId
     constructor() {
         this.activeSessions = new Map();
         this.activeSockets = new Map();
