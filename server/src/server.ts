@@ -41,6 +41,18 @@ io.on('connection', (socket: Socket) => {
 
     const userId: string = String(id);
     sessionManager.addConnection(userId, socket);
+    // connect player to game in progress
+    if (gameManager.activeGames.has(userId)){
+        const gameId: string = gameManager.activeGames.get(userId)!;
+        const game: activeGame = gameManager.games.get(gameId)!;
+        socket.emit('status-update', JSON.stringify({'status': 'active'}));
+        socket.emit('board-update', JSON.stringify({'fen': (game.game as Chess).fen()}));
+        if (game.playerB === userId){
+            socket.emit('color-update', JSON.stringify({'color': 'b'}));
+        } else{
+            socket.emit('color-update', JSON.stringify({'color': 'w'}));
+        }    
+    }
 
     socket.on('disconnect', () => {
         const playerId: string = sessionManager.activeSockets.get(socket.id)!;
