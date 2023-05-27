@@ -43,6 +43,21 @@ io.on('connection', (socket: Socket) => {
     sessionManager.addConnection(userId, socket);
 
     socket.on('disconnect', () => {
+        const playerId: string = sessionManager.activeSockets.get(socket.id)!;
+        const gameId: string | undefined = gameManager.activeGames?.get(playerId);
+        if (gameId != null){
+            const game: activeGame = gameManager.games.get(gameId)!;
+            // if both disconnected close game
+            if (game.playerB === playerId && !sessionManager.activeSessions.has(game.playerW)){
+                console.log("game closed");
+                gameManager.closeGame(gameId);
+            }
+            if (game.playerW === playerId && !sessionManager.activeSessions.has(game.playerB)){
+                console.log("game closed");
+                gameManager.closeGame(gameId);
+            }
+        }
+        console.log("disconnected");
         sessionManager.removeConnection(socket);
     });
 
@@ -74,6 +89,8 @@ io.on('connection', (socket: Socket) => {
         if (gameManager.statusUpdate(gameId, flag)){
             sessionManager.activeSessions.get(game.playerB)?.emit('status-update', JSON.stringify(flag));
             sessionManager.activeSessions.get(game.playerW)?.emit('status-update', JSON.stringify(flag));
+            console.log("game closed");
+            gameManager.closeGame(gameId);
         }
         
     });

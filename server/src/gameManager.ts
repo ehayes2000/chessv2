@@ -6,7 +6,8 @@ import { v4 as uuidv4, v4 } from 'uuid';
 export type activeGame = {
     playerB: string,
     playerW: string, 
-    game: object
+    game: object,
+    status: string
 }
 
 export class GameManager {
@@ -28,7 +29,8 @@ export class GameManager {
         const newGame: activeGame = {
             playerW: userIdW,
             playerB: userIdB,
-            game: new Chess()
+            game: new Chess(),
+            status: "active"
         }
     
         this.games.set(gameId, newGame);
