@@ -20,7 +20,7 @@ function App() {
 
 
   return (
-    <div style={{width:'40vw'}}> 
+    <div className="h-screen w-screen">
       <GameManager userId={playerId}></GameManager>
     </div>
   )
